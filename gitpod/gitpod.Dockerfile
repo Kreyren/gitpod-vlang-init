@@ -4,7 +4,7 @@ FROM gitpod/workspace-full-vnc:latest
 # WTF: LABEL dazzle/layer=tool-brew
 # WTF: LABEL dazzle/test=tests/tool-brew.y
 USER root
-ENV VLANG_SOURCE="/tmp/vlang"
+ENV VLANG_SOURCE="/opt/vlang"
 RUN die() { printf 'FATAL: %s\n' "$2" ; exit "$1" ;} ; [ ! -d "$VLANG_SOURCE" ] && { git clone https://github.com/vlang/v /tmp/vlang || die 1 "Unable to clone vlang in '$VLANG_SOURCE'" ;}
 RUN if ! command -v v >/dev/null; then { make -C "$VLANG_SOURCE" || die 1 "Unable to compile vlang in '$VLANG_SOURCE' for deploy" ;}; fi
 # Selfcheck
