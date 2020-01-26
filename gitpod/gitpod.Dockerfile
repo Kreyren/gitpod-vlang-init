@@ -4,7 +4,11 @@ FROM gitpod/workspace-full-vnc:latest
 # WTF: LABEL dazzle/layer=tool-brew
 # WTF: LABEL dazzle/test=tests/tool-brew.y
 USER root
-RUN die() { printf 'FATAL: %s\n' "$2" ; exit "$1" ;} ; [ ! -d "/tmp/vlang" ] && { git clone https://github.com/vlang/v /tmp/vlang || die 1 "Unable to clone vlang in /usr/src/vlang" ;}
-RUN if ! command -v v >/dev/null; then { make -C /tmp/vlang || die 1 "Unable to compile vlang for deploy" ;}; fi
+ENV VLANG_SOURCE="/tmp/vlang"
+RUN die() { printf 'FATAL: %s\n' "$2" ; exit "$1" ;} ; [ ! -d "$VLANG_SOURCE" ] && { git clone https://github.com/vlang/v /tmp/vlang || die 1 "Unable to clone vlang in '$VLANG_SOURCE'" ;}
+RUN if ! command -v v >/dev/null; then { make -C "$VLANG_SOURCE" || die 1 "Unable to compile vlang in '$VLANG_SOURCE' for deploy" ;}; fi
 # Selfcheck
-RUN if ! command -v v >/dev/null; then die 256 "Failed to install vlang on target system"; fi
+RUN if ! command -v v >/dev/null && [ -f "$VLANG_SOURCE/v" ]; then \
+  [ ! -x "$VLANG_SOURCE/v" ] && { chmod +x "$VLANG_SOURCE/v" || { printf 'FATAL: %s\n' "Unable to set executable permission on '$VLANG_SOURCE/v'" ; exit 1 ;};} \
+  [ -f "$VLANG_SOURCE/v" ] && { "$VLANG_SOURCE/v" --symlink || { printf 'FATAL: %s\n' "Unable to symlink vlang executable" ; exit 1 ;};} \
+  elif ! command -v v >/dev/null && [ ! -f "$VLANG_SOURCE/v" ]; then printf 'FATAL: %s\n' "File '$VLANG_SOURCE/v' is not available, but vlang compilation passed - update of vlang?"; else { printf 'FATAL: %s\n' "Unexpected happend while selfchecking vlang" ; exit 256 ;}; fi
