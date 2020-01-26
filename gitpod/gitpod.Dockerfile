@@ -11,4 +11,4 @@ RUN if ! command -v v >/dev/null; then { make -C "$VLANG_SOURCE" || die 1 "Unabl
 RUN if ! command -v v >/dev/null && [ -f "$VLANG_SOURCE/v" ]; then \
   [ ! -x "$VLANG_SOURCE/v" ] && { chmod +x "$VLANG_SOURCE/v" || { printf 'FATAL: %s\n' "Unable to set executable permission on '$VLANG_SOURCE/v'" ; exit 1 ;};} \
   [ -f "$VLANG_SOURCE/v" ] && { "$VLANG_SOURCE/v" --symlink || { printf 'FATAL: %s\n' "Unable to symlink vlang executable" ; exit 1 ;};} \
-  elif ! command -v v >/dev/null && [ ! -f "$VLANG_SOURCE/v" ]; then printf 'FATAL: %s\n' "File '$VLANG_SOURCE/v' is not available, but vlang compilation passed - update of vlang?"; else { printf 'FATAL: %s\n' "Unexpected happend while selfchecking vlang" ; exit 256 ;}; fi
+  elif ! command -v v >/dev/null && [ ! -f "$VLANG_SOURCE/v" ]; then { printf 'FATAL: %s\n' "File '$VLANG_SOURCE/v' is not available, but vlang compilation passed - update of vlang?" ; exit 1 ;}; else { printf 'FATAL: %s\n' "Unexpected happend while selfchecking vlang" ; exit 256 ;}; fi
