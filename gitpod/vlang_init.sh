@@ -5,7 +5,6 @@
 
 : "
 Initialization script made for gitpod to install vlang backend in gitpod
-
 CONFIGURATION
 - $VLANG_SOURCE = Path used for extraction and keeping of vlang source files
 - $VLANG_VERSION = Expected vlang version (value 'latest' is supported through GitHub API)
