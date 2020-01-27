@@ -3,8 +3,6 @@
 # Created by Jacob Hrbek <kreyren@rixotstudio.cz> under license GPL-3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 # Based in part on https://github.com/JesterOrNot/Gitpod-V which is created by Sean Hellum as unlicense
 
-exit 1
-
 : "
 Initialization script made for gitpod to install vlang backend in gitpod
 
