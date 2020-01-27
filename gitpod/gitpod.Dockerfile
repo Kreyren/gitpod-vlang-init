@@ -2,11 +2,6 @@ FROM gitpod/workspace-full-vnc:latest
 
 ### VLANG ###
 USER root
-ENV VLANG_SOURCE="/opt/vlang"
-RUN git clone https://github.com/vlang/v "$VLANG_SOURCE" || exit 1
-RUN chown -R gitpod:gitpod "$VLANG_SOURCE" || exit 1
-USER gitpod
-RUN make -C "$VLANG_SOURCE" || exit 1
-USER root
-RUN "$VLANG_SOURCE/v" symlink || exit 1
-RUN unset VLANG_SOURCE
+RUN wget https://github.com/Kreyren/gitpod-vlang-init/blob/master/gitpod/vlang_init.sh -O /usr/bin/vlang_init || exit 1
+RUN chmod +x /usr/bin/vlang_init || exit 1
+RUN vlang_init
