@@ -55,15 +55,13 @@ esac
 
 # Create cachedir
 if [ ! -d "$CACHEDIR" ]; then
-	mkdir "$CACHEDIR" || die 1 "Unable to make a new directory in '$HOME/.cache' used for caching"
+	mkdir "$CACHEDIR" || die 4 "Unable to make a new directory in '$HOME/.cache' used for caching"
 	edebug "Created a new directory in '$CACHEDIR' used for caching"
 elif [ -d "$CACHEDIR" ]; then
 	edebug "Directory '$CACHEDIR' already exits, skipping creation"
 else
 	die 256 "Unexpected happend while creating chachedir, bug?"
 fi
-
-exit 126
 
 # Fetch
 if [ ! -f "$CACHEDIR/vlang-$VLANG_VERSION.zip" ]; then
