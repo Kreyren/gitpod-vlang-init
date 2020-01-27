@@ -63,6 +63,8 @@ else
 	die 256 "Unexpected happend while creating chachedir, bug?"
 fi
 
+exit 1
+
 # Fetch
 if [ ! -f "$CACHEDIR/vlang-$VLANG_VERSION.zip" ]; then
 	wget "https://github.com/vlang/v/releases/download/$VLANG_VERSION/v_linux.zip" -O "$CACHEDIR/vlang-$VLANG_VERSION.zip" || die 1 "Unable to fetch vlang tarball"
