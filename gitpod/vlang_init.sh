@@ -16,6 +16,8 @@ CONFIGURATION
 - $VLANG_EXE = Path to which we will extract executable for vlang
 "
 
+exit 1
+
 # Configuration
 [ -z "$VLANG_SOURCE" ] && VLANG_SOURCE="/opt/vlang"
 [ -z "$VLANG_VERSION" ] && VLANG_VERSION="0.1.24"
