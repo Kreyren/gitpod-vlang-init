@@ -2,7 +2,16 @@
 # Created by Jacob Hrbek <kreyren@rixotstudio.cz> under license GPL-3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 # Based in part on https://github.com/JesterOrNot/Gitpod-V which is created by Sean Hellum as unlicense
 
+: "
+Initialization script made for gitpod to install vlang backend in gitpod
 
+CONFIGURATION
+- $VLANG_SOURCE = Path used for extraction and keeping of vlang source files
+- $VLANG_VERSION = Expected vlang version (value 'latest' is supported through GitHub API)
+- $VLANG_GROUP = Group used for those that are expected to have access in vlang
+- $CACHEDIR = Path for cache directory, based on FSH3.0 (270120) this should be '$HOME/.cache'
+- $VLANG_EXE = Path to which we will extract executable for vlang
+"
 
 # Configuration
 [ -z "$VLANG_SOURCE" ] && VLANG_SOURCE="/opt/vlang"
@@ -132,7 +141,9 @@ else
 fi
 
 # Selfcheck
-case su gitpod -c "$VLANG_EXE help &>/dev/null ; exit $?" in
+su gitpod -c "$VLANG_EXE" help &>/dev/null
+
+case "$?" in
 	0) printf 'INFO: %s\n' "builtin vlang selfcheck passed" ;;
 	*) die "$?" "builtin vlang selfcheck failed"
 esac
