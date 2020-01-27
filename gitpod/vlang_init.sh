@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+# -- Export of regEx is required
 # Created by Jacob Hrbek <kreyren@rixotstudio.cz> under license GPL-3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 # Based in part on https://github.com/JesterOrNot/Gitpod-V which is created by Sean Hellum as unlicense
 
@@ -141,7 +142,7 @@ else
 fi
 
 # Selfcheck
-su gitpod -c "$VLANG_EXE" help &>/dev/null
+su gitpod -c "$VLANG_EXE" help >/dev/null
 
 case "$?" in
 	0) printf 'INFO: %s\n' "builtin vlang selfcheck passed" ;;
