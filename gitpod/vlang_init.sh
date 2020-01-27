@@ -63,7 +63,7 @@ else
 	die 256 "Unexpected happend while creating chachedir, bug?"
 fi
 
-exit 1
+exit 126
 
 # Fetch
 if [ ! -f "$CACHEDIR/vlang-$VLANG_VERSION.zip" ]; then
