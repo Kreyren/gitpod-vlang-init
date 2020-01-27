@@ -49,13 +49,13 @@ fi
 case "$VLANG_VERSION" in
 	[0-9].[0-9].[0-9]|[0-9][0-9].[0-9].[0-9]|[0-9][0-9].[0-9][0-9].[0-9]|[0-9][0-9].[0-9][0-9].[0-9][0-9]|[0-9].[0-9][0-9].[0-9]|[0-9].[0-9].[0-9][0-9]) true ;;
 	latest)
-		VLANG_VERSION="$(curl https://api.github.com/repos/vlang/v/releases/latest 2>/dev/null | grep tag_name | sed -E 's#(^\s+\"tag_name\"\:\s+\")([^"]+)([^\n]+)#\2#gm' || die 1 "Unable to get latest vlang version for GitHub API")" ;;
+		VLANG_VERSION="$(curl https://api.github.com/repos/vlang/v/releases/latest 2>/dev/null | grep tag_name | sed -E 's#(^\s+\"tag_name\"\:\s+\")([^"]+)([^\n]+)#\2#gm' || die 4 "Unable to get latest vlang version for GitHub API")" ;;
 	*) die 2 "Unsupported vlang version '$VLANG_VERSION' has been parsed in vlang_init script"
 esac
 
 # Create cachedir
 if [ ! -d "$CACHEDIR" ]; then
-	mkdir "$CACHEDIR" || die 4 "Unable to make a new directory in '$HOME/.cache' used for caching"
+	mkdir "$CACHEDIR" || die 1 "Unable to make a new directory in '$HOME/.cache' used for caching"
 	edebug "Created a new directory in '$CACHEDIR' used for caching"
 elif [ -d "$CACHEDIR" ]; then
 	edebug "Directory '$CACHEDIR' already exits, skipping creation"
